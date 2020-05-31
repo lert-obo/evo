@@ -1,0 +1,21 @@
+version: '2.3'
+services:
+  evo:
+    build: ./
+    tty: true
+    runtime: nvidia
+    ipc: host
+    shm_size: '8gb'
+    # ports:
+    #   - "8886:8886"
+    #   - "6004:6004"
+    volumes:
+      - ./:/src:cached
+      - /tmp/.X11-unix/:/tmp/.X11-unix
+      - "$HOME/.Xauthority:/root/.Xauthority:rw"
+    container_name: evo
+    network_mode: "host"
+    privileged: true
+    environment:
+      - DISPLAY
+      - QT_X11_NO_MITSHM=1
